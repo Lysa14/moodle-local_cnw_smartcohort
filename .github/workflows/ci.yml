@@ -18,10 +18,14 @@ jobs:
           php-version: '7.4'
 
       - name: Install dependencies
-        run: composer install
+        run: |
+          cd /home/lysa/CIDC-Moodle/moodle-local_cnw_smartcohort
+          composer install
 
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: |
+          cd /home/lysa/CIDC-Moodle/moodle-local_cnw_smartcohort
+          vendor/bin/phpunit
 
 
