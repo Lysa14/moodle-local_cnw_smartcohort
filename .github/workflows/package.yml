@@ -2,8 +2,10 @@ name: Package and publish
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - master
+ #   tags:
+ #     - "v*.*.*"
 
 env:
   REGISTRY: ghcr.io
