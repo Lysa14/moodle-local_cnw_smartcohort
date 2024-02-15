@@ -22,12 +22,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
 
-      - name: Install Composer
-        run: |
-          mkdir -p bin
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php composer-setup.php --install-dir=bin --filename=composer
-          php -r "unlink('composer-setup.php');"
+
      
       - name: Install Web Server (Apache)
         run: |
@@ -64,6 +59,13 @@ jobs:
           cd  moodle/moodle-${{ matrix.moodle-version }}/
           composer install --prefer-dist --no-progress --no-suggest
           export PATH=$PATH:./vendor/bin   
+
+      - name: Install Composer
+        run: |
+              mkdir -p bin
+              php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+              php composer-setup.php --install-dir=bin --filename=composer
+              php -r "unlink('composer-setup.php');"
     
       - name: Install PHPUnit
         run: |
