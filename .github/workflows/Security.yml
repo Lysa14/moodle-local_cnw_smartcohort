@@ -5,17 +5,22 @@ on:
             - master
 
 jobs:
-
- lgtm:
-    runs-on: ubuntu-latest
-    name: True meaning of LGTM
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: LGTM
-      uses: beeceej/lgtm@v0.0.3
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
+    security:
+        runs-on: ubuntu-latest
+        
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
     
+          - name: Install dependencies
+            run: composer install --no-dev --optimize-autoloader
+
+          - name: Run static code analysis
+            run: phpstan analyze --no-progress --error-format=json | jq -r 'select(.message | startswith("Security issue"))'
+
+          - name: Run dependency vulnerability check
+            run: |
+                wget https://dl.bintray.com/jeremy-long/owasp/dependency-check-5.4.0-release.zip
+                unzip dependency-check-5.4.0-release.zip
+                ./dependency-check/bin/dependency-check.sh --project "php-moodle" --scan ${{github.workspace}} --format HTML -f "dependency-check-report.html"
+
