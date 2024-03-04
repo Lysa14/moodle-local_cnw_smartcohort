@@ -107,7 +107,7 @@ jobs:
             to-email: ${{ secrets.SMTP_TO_EMAIL }}
             username: ${{ secrets.SMTP_USERNAME }}
             password: ${{ secrets.SMTP_PASSWORD }}
-            subject: Workflows Status Notification
+            subject: Workflows Status Notifications
             body: |
               
               The build was ${{ needs.test_php.result }}.
