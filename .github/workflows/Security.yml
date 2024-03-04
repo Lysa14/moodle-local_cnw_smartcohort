@@ -1,0 +1,21 @@
+name: PHP & MOODLE ci
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+
+ lgtm:
+    runs-on: ubuntu-latest
+    name: True meaning of LGTM
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: LGTM
+      uses: beeceej/lgtm@v0.0.3
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+    
