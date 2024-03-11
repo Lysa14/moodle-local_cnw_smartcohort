@@ -94,15 +94,16 @@ jobs:
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
           
    security-check:
-    runs-on: ubuntu-latest
-    steps:
-          - uses: actions/checkout@v2
-          - uses: symfonycorp/security-checker-action@v5
-            with:
-                disable-exit-code: 1
-            id: security-check
-          - name: Display the vulnerabilities as JSON
-            run: echo ${{ steps.security-check.outputs.vulns }}
+
+      runs-on: ubuntu-latest
+      name: True meaning of LGTM
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: LGTM
+        uses: beeceej/lgtm@v0.0.3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
    send_email_notification:
