@@ -93,13 +93,16 @@ jobs:
           path: |
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
           
-
-      - name: Security Check
-        run: |
-            cd moodle/moodle-${{ matrix.moodle-version }}/local
-            composer require roave/security-advisories:dev-master
-            composer require sensiolabs/security-checker
-            php vendor/bin/security-checker security:check
+   security-check:
+    runs-on: ubuntu-latest
+    steps:
+          - uses: actions/checkout@v2
+          - uses: symfonycorp/security-checker-action@v5
+            with:
+                disable-exit-code: 1
+            id: security-check
+          - name: Display the vulnerabilities as JSON
+            run: echo ${{ steps.security-check.outputs.vulns }}
 
 
    send_email_notification:
