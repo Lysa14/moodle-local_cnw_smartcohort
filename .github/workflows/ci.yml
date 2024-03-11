@@ -114,3 +114,15 @@ jobs:
               ----------------------------------------------
               Une nouvelle version de notre projet est disponible. Vous pouvez consulter la source du projet ici : https://github.com/${{ github.repository }}
               ---------------------------------------------
+  security-check:
+    runs-on: ubuntu-latest
+    needs: test_php
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Security Check
+        run: |
+          cd moodle/moodle-${{ matrix.moodle-version }}/local
+          composer require roave/security-advisories:dev-master
+          composer require sensiolabs/security-checker
+          php vendor/bin/security-checker security:check
