@@ -97,7 +97,9 @@ jobs:
       - name: Install dependencies
         working-directory: ./moodle/moodle-${{ matrix.moodle-version }}
         run: composer install
-
+     
+      - name: Install PHPStan
+        run: composer require phpstan/phpstan
       - name: Run security tools
         working-directory: ./moodle/moodle-${{ matrix.moodle-version }}
         run: |
