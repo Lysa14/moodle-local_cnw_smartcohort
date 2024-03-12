@@ -1,0 +1,30 @@
+name: PHP Security Scanner
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run security tools
+        run: |
+          phpstan analyse src/
+          phpcs --standard=PSR2 src/
+
+      - name: Generate security report
+        run: php security-report.php > security-report.txt
+
+      - name: Upload security report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: security-report.txt
