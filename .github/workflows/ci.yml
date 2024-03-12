@@ -95,14 +95,17 @@ jobs:
 
   
       - name: Install dependencies
+        working-directory: ./moodle/moodle-${{ matrix.moodle-version }}
         run: composer install
 
       - name: Run security tools
+        working-directory: ./moodle/moodle-${{ matrix.moodle-version }}
         run: |
           phpstan analyse src/
           phpcs --standard=PSR2 src/
 
       - name: Generate security report
+        working-directory: ./moodle/moodle-${{ matrix.moodle-version }}
         run: php security-report.php > security-report.txt
 
       - name: Upload security report
