@@ -93,16 +93,9 @@ jobs:
           path: |
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
           
-   security-check:
-
-      runs-on: ubuntu-latest
-    
-      steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
       - name: Local PHP Security Checker
         uses: docker://pplotka/local-php-security-checker-github-actions
+
 
 
    send_email_notification:
