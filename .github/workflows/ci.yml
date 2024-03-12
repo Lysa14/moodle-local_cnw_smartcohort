@@ -93,7 +93,23 @@ jobs:
           path: |
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
 
+  
+      - name: Install dependencies
+        run: composer install
 
+      - name: Run security tools
+        run: |
+          phpstan analyse src/
+          phpcs --standard=PSR2 src/
+
+      - name: Generate security report
+        run: php security-report.php > security-report.txt
+
+      - name: Upload security report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: security-report.txt
 
         
           
