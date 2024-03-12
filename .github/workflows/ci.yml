@@ -96,10 +96,14 @@ jobs:
    security-check:
 
       runs-on: ubuntu-latest
-      name: True meaning of LGTM
+    
       steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
+      - name: Install Node.js
+        run: |
+          chmod +x /bin/entrypoint
       - name: LGTM
         uses: beeceej/lgtm@v0.0.3
         env:
