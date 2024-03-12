@@ -100,9 +100,6 @@ jobs:
         working-directory: moodle/moodle-${{ matrix.moodle-version }}
           
 
-      - name: ls 
-        run: |
-           ls -R
         
           
       - name: Local PHP Security Checker
