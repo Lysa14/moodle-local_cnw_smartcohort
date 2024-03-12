@@ -92,6 +92,18 @@ jobs:
           name: test-logs
           path: |
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
+
+
+      - name: Install Composer Dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-suggest
+        working-directory: moodle/moodle-${{ matrix.moodle-version }}
+          
+
+      - name: ls 
+        run: |
+           ls -R
+        
           
       - name: Local PHP Security Checker
         uses: docker://pplotka/local-php-security-checker-github-actions
