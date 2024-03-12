@@ -100,10 +100,13 @@ jobs:
      
       - name: Install PHPStan
         run: composer require phpstan/phpstan
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse src/
+
       - name: Run security tools
         working-directory: ./moodle/moodle-${{ matrix.moodle-version }}
         run: |
-          phpstan analyse src/
+        
           phpcs --standard=PSR2 src/
 
       - name: Generate security report
