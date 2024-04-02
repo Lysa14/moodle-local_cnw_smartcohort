@@ -14,13 +14,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ls ${{ github.workspace }}
-          ls -lR
           composer install
 
       - name: Run security tools
         run: |
-          ls -lR
           phpstan analyse ${{ github.workspace }}
           phpcs --standard=PSR2 ${{ github.workspace }}
 
