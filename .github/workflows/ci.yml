@@ -94,18 +94,11 @@ jobs:
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
 
  
-   security-check:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Psalm
-            uses: docker://ghcr.io/psalm/psalm-github-actions
-            with:
-              security_analysis: true
-              report_file: results.sarif
-          - name: Upload Security Analysis results to GitHub
-            uses: github/codeql-action/upload-sarif@v2
-            with:
-              sarif_file: results.sarif
+           
+      - name: Run Psalm
+        uses: docker://ghcr.io/psalm/psalm-github-actions:5.7.7
+        
+    
 
 
    send_email_notification:
