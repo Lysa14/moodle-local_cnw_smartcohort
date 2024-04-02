@@ -22,10 +22,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - uses: actions/checkout@v2
-      - uses: symfonycorp/security-checker-action@v5
-        with:
-              disable-exit-code: 1
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -96,8 +93,11 @@ jobs:
           path: |
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
 
-
-     
+      
+      - uses: actions/checkout@v2
+      - uses: symfonycorp/security-checker-action@v5
+        with:
+              disable-exit-code: 1
  
 
         
