@@ -98,7 +98,7 @@ jobs:
       - name: Run Psalm
         uses: docker://ghcr.io/psalm/psalm-github-actions:5.7.7
         with: 
-          relative_dir: /github/workspace/moodle/moodle-${{ matrix.moodle-version }}/local
+          relative_dir: /github/workspace/moodle/moodle-${{ matrix.moodle-version }}
     
 
 
