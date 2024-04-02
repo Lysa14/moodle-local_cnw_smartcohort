@@ -16,10 +16,10 @@ jobs:
         run: |
           composer install
 
-      - name: Run security tools
-        run: |
-          phpstan analyse ${{ github.workspace }}
-          phpcs --standard=PSR2 ${{ github.workspace }}
+      - uses: php-actions/composer@v6 
+      - uses: php-actions/phpstan@v3
+        with:
+          path : ${{github.workspace}}
 
       - name: Generate security report
         run: php security-report.php > security-report.txt
