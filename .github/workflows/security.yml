@@ -20,12 +20,5 @@ jobs:
       - uses: php-actions/phpstan@v3
         with:
           path : ${{github.workspace}}
-
-      - name: Generate security report
-        run: php security-report.php > security-report.txt
-
-      - name: Upload security report
-        uses: actions/upload-artifact@v3
-        with:
-          name: security-report
-          path: security-report.txt
+          php-version: '7.4'
+          level: 8
