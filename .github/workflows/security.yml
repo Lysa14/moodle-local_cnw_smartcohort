@@ -17,8 +17,9 @@ jobs:
 
       - name: Run security tools
         run: |
-          phpstan analyse src/
-          phpcs --standard=PSR2 src/
+          ls -lR
+          phpstan analyse ${{ github.workspace }}
+          phpcs --standard=PSR2 ${{ github.workspace }}
 
       - name: Generate security report
         run: php security-report.php > security-report.txt

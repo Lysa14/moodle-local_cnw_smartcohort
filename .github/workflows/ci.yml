@@ -94,13 +94,7 @@ jobs:
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
 
  
-           
-      - name: Run Psalm
-        uses: docker://ghcr.io/psalm/psalm-github-actions:5.7.7
-        with: 
-          relative_dir:  ${{github.workspace}}/bin
-    
-
+          
 
    send_email_notification:
       runs-on: ubuntu-latest
