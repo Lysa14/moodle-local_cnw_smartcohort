@@ -93,15 +93,19 @@ jobs:
           path: |
             moodle/moodle-${{ matrix.moodle-version }}/local/resultat_tests.log
 
-      
-      - uses: actions/checkout@v2
-      - uses: symfonycorp/security-checker-action@v5
-        with:
-              disable-exit-code: 1
-              lock: /home/runner/work/moodle-local_cnw_smartcohort/moodle-local_cnw_smartcohort/bin/composer.lock
-
-        
-          
+ 
+   security-check:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Psalm
+            uses: docker://ghcr.io/psalm/psalm-github-actions
+            with:
+              security_analysis: true
+              report_file: results.sarif
+          - name: Upload Security Analysis results to GitHub
+            uses: github/codeql-action/upload-sarif@v2
+            with:
+              sarif_file: results.sarif
 
 
    send_email_notification:
