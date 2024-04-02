@@ -98,7 +98,7 @@ jobs:
       - uses: symfonycorp/security-checker-action@v5
         with:
               disable-exit-code: 1
- 
+              lock: /home/runner/work/moodle-local_cnw_smartcohort/moodle-local_cnw_smartcohort/bin/composer
 
         
           
