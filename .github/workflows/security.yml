@@ -14,17 +14,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          ls ${{ github.workspace }}
           ls -lR
-          mkdir -p bin
-          php -r "copy('https://getcomposer.org/installer', 'composer.json');"
-          php composer.json --install-dir=bin --filename=composer
-          php -r "unlink('composer.json');"
           composer install
 
       - name: Run security tools
         run: |
           ls -lR
-
           phpstan analyse ${{ github.workspace }}
           phpcs --standard=PSR2 ${{ github.workspace }}
 
