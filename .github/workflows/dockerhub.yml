@@ -1,0 +1,38 @@
+name: Push to Dockerhub
+
+on:
+  push:
+    branches:
+      - 'master'
+
+env:
+USERNAME: lysa14
+IMAGE_NAME: smart-cohort
+IMAGE_TAG: v0.1.0      
+   
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          load: true
+          tags: user/app:latest
+      - name: Sign image
+        uses: neohelden/notary-action
+        with:
+            tags: ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            key: ${{ secrets.RSA_KEY }}
+            keyname: actions
