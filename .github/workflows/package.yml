@@ -61,7 +61,7 @@ jobs:
       - name: Sign image
         uses: neohelden/notary-action
         with:
-          tags: user/app:latest
+          tags: ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           key: ${{ secrets.RSA_KEY }}
           keyname: actions
 
