@@ -11,7 +11,7 @@ env:
   REGISTRY: ghcr.io
   USERNAME: lysa14
   IMAGE_NAME: smart-cohort
-  IMAGE_TAG: v0.0.1
+  IMAGE_TAG: v0.1.0
 
 jobs:
   build:
@@ -57,5 +57,16 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+      - name: Sign image
+        uses: neohelden/notary-action
+        with:
+          tags: user/app:latest
+          key: ${{ secrets.RSA_KEY }}
+          keyname: actions
+
+
+
+
 
 #        ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
