@@ -58,15 +58,23 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
-      - name: Sign image
-        uses: neohelden/notary-action
-        with:
-            tags: ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            key: ${{ secrets.RSA_KEY }}
-            keyname: actions
 
-    
-    
+  # Sign the image with cosign
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3.1.1
+
+      - name: Sign image with a key
+        run: |
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY  ghcr.io/${{ github.repository }}:latest
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
 
 
-#        ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      - name: Sign image with a key
+        run: |
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY  ghcr.io/${{ github.repository }}:latest
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}  
