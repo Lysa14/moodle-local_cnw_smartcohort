@@ -11,7 +11,7 @@ env:
   REGISTRY: ghcr.io
   USERNAME: lysa14
   IMAGE_NAME: smart-cohort
-  IMAGE_TAG: v0.1.0
+  IMAGE_TAG: v0.1.1
 
 jobs:
   build:
