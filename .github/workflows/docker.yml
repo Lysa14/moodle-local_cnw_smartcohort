@@ -73,17 +73,18 @@ jobs:
 
       - name: Sign image with a key
         run: |
-          cosign sign --yes --key ${{ env.COSIGN_PRIVATE_KEY }}   ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY   ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        shell: bash
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
 
 
-  # Push the signature to the registry
+  # # Push the signature to the registry
   
-      - name: Push signature to registry
-        run: |
-          cosign push --key ${{ env.COSIGN_PRIVATE_KEY }} ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+  #     - name: Push signature to registry
+  #       run: |
+  #         cosign push --key ${{ env.COSIGN_PRIVATE_KEY }} ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+  #       env:
+  #         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+  #         COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
